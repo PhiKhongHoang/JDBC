@@ -1,0 +1,32 @@
+package test;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import database.JDBCUtil;
+
+public class TestJDCBCUtil {
+	public static void main(String[] args) {
+
+		try {
+			// bước 1: tạo kết nối
+			Connection conn = JDBCUtil.getConnection();
+
+			// bước 2: tạo đối tượng statement
+			Statement st = conn.createStatement();
+
+			// bước 3: tạo câu lệnh sql
+			String sql = "INSERT INTO persons(last_name, first_name, gender, dob, income) VALUES (\"Phi\", \"Khong Hoang\", \"F\", \"2002-02-10\", 20000000)";
+
+			int check = st.executeUpdate(sql);
+			System.out.println("Số dòng thay đổi " + check);
+
+			// bước 5: ngắt kết nối
+			JDBCUtil.closeConnection(conn);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
